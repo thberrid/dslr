@@ -1,34 +1,24 @@
 #!/usr/bin/Rscript --vanilla
 
-source("ft_math.r");
-#import parsing.R
+source("ft_math.r")
+source("ft_datacheck.r")
+
+test <- c(1, NA, 1, 1, 1)
 
 args <- commandArgs(TRUE)
+filename <- check_file(args[1])
+data <- ft_checkdata(filename)
 
-if (is.na(args[1])){
-	cat("usage: ./predict file.csv\n")
-	q()
-}
+data[[7]]
+#####
 
-if (!file.exists(args[1])){
-	cat("file does not exist\n")
-	q()
-}
+#data <- read.csv(args[1], stringsAsFactors = FALSE)
+#data[[3]]
+#smode(data[[3]])
 
-# all.equal / any / identical
-# build consistent data.frame
-# [] vs [[]] ?
-# is.numeric !! is.finite()
+#test <- c("2001-02-16", "2001-02-17")
 
-datas <- read.csv(args[1])
-a <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9) 
-#ft_sum(a)
-#watch(a)
-#ft_count(a)
-#ft_mean(a)
-#ft_max(a)
-#ft_std(a)
 
-ft_percentile(a, 25)
-ft_percentile(a, 50)
-ft_percentile(a, 75)
+#as.Date("20210920", "%y-%m-%d")
+
+#all(isDate(test))

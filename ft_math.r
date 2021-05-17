@@ -1,9 +1,20 @@
 ft_sum <- function (X){
-    Reduce(function(x, y){ x + y }, X)
+    Reduce(function(x, y){
+        if (is.na(y))
+            return (x)
+        else
+            x + y
+    }, X, init = 0)
 }
 
 ft_count <- function (X){
-    Reduce(function(x, y){ x + 1 }, X, init = 0)
+    Reduce(function(x, y){
+        if (is.na(y))
+            return (x)
+        else
+            x + 1
+
+    }, X, init = 0)
 }
 
 ft_mean <- function (X){
@@ -31,9 +42,8 @@ ft_percentile <- function(X, percent){
         return (NA)
     X <- sort(X)
     n <- ft_count(X)
-
-#    if (n %% 2 == 0){
-#       return (ft_mean(c(X[n * (percent / 100)], X[(n + 2)  * (percent / 100)])))
-#   }
-#    X[ceiling(n  * (percent / 100))]
+    if ((n + 1) %% (100 / percent) == 0){ 
+        return (X[(n + 1) * percent / 100])
+    }
+    ft_mean(c(X[floor((n + 1) * percent / 100)], X[ceiling((n + 1) * percent / 100)]))
 }
