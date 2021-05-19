@@ -1,4 +1,4 @@
-#!/usr/bin/Rscript --vanilla
+#!/usr/bin/Rscript --save --no-restore
 
 source("ft_math.r")
 source("ft_datacheck.r")
