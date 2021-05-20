@@ -1,40 +1,54 @@
-#!/usr/bin/Rscript --no-save --no-restore
+#!/usr/bin/Rscript --no-save --restore
 
+library(ggplot2)
 source("ft_math.r")
 
-# x11()
+x11()
+if (!exists(c("dslr"))){
+    cat("Execute describe.r before using this script.\n")
+    quit()
+}
+
+#####
+
+features.indexes <- c(7:length(dslr))
+houses.names <- c("Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff")
+
+dslr.means <- outer(
+                    houses.names,
+                    features.indexes,
+                    Vectorize(function(x, y){
+                        ft_sum(dslr[dslr[2] == x, y])
+                    })
+            )
+rownames(dslr.means) <- houses.names
+colnames(dslr.means) <- colnames(dslr.describe)
+#dslr.means
+
+#hist(dslr[dslr[2] == "Ravenclaw", 16])
+
+ggplot(dslr, aes(binwidth = 1)) + 
+#    geom_histogram(aes(x = Astronomy), fill="orange", alpha = .2) +
+#    geom_histogram(aes(x = Arithmancy), fill="blue", alpha = .2) + 
+    geom_histogram(aes(x = Herbology), fill="green", alpha = .2)
+#    + geom_histogram(fill="blue", alpha = .2)
 
 
-houses <- c("Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff")
-#rm(list = ls())
-# create mean by features for each houses
-exists("data")
-data
-#ft_sum(data[data[2] == H, i.f])
+# variance
+# V <- function (X) {
+#     n <- ft_count(X)
+#     X <- ft_normalize(X)
+#     mean <- ft_mean(X)
+#     1 / n * sum((X - mean) ^ 2)
+# }
 
-# if (FALSE){
-# data.hist <- outer(
-#                     houses,
-#                     index_features,
-#                     Vectorize(function(x, y){
-#                         ft_mean(data[data[2] == x, y])
-#                     })
-#             )
-# rownames(data.hist) <- houses
-# colnames(data.hist) <- colnames(data[index_features])
-# data.hist <- scale(data.hist, center = FALSE)
-# #data.hist
+# dslr.means.variance <- apply(dslr.means, MARGIN = 2, FUN = V)
+# dslr.means.variance
 
-# test <- c(-5, 0, 10)
-# test <- scale(test)
-# test
+#hist(dslr.means.variance)
 
 
-#        F1.sum  F2.sum  F3.  F4. ...
-#class1
-#class2
-#class3
-#class4
+#####
 
-#message("Press Enter to close")
-#invisible(readLines("stdin", n=1))
+message("Press Enter to close")
+invisible(readLines("stdin", n=1))

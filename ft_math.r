@@ -47,3 +47,7 @@ ft_percentile <- function(X, percent){
     }
     ft_mean(c(X[floor((n + 1) * percent / 100)], X[ceiling((n + 1) * percent / 100)]))
 }
+
+ft_normalize <- function(X){
+    sapply(X, function(x){ (x - ft_min(X)) / (ft_max(X) - ft_min(X)) }, simplify = TRUE)
+}
