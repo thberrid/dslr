@@ -29,32 +29,32 @@ check_file <- function(filename){
 }
 
 ft_checkdata <- function (filename){
-    data <- read.csv(filename, stringsAsFactors = FALSE, strip.white = TRUE)
-    index_features <- c(7:length(data))
+    d <- read.csv(filename, stringsAsFactors = FALSE, strip.white = TRUE)
+    index_features <- c(7:length(d))
     if (
 
         #check index
-        !all(is.integer(data[[1]])) | any(is.na(data[[1]]))
+        !all(is.integer(d[[1]])) | any(is.na(d[[1]]))
 
         #check house's name: Ravenclaw - Slytherin - Gryffindor - Hufflepuff
-        | !all(data[[2]] %in% c("Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"))
+        | !all(d[[2]] %in% c("Ravenclaw", "Slytherin", "Gryffindor", "Hufflepuff"))
 
         #check first / name name
-        | any(data[3:4] == "")
+        | any(d[3:4] == "")
         
         #check birthday
-        | !all(isDate(data[[5]]))
+        | !all(isDate(d[[5]]))
         
         #check hand: Left / Right
-        | !all(data[[6]] %in% c("Left", "Right"))
+        | !all(d[[6]] %in% c("Left", "Right"))
 
         #check features list
-        | !all(sapply(data[index_features], is.numeric))
+        | !all(sapply(d[index_features], is.numeric))
         )
     {
         cat("error in ", filename, "\n")
         quit()
     }
-    data[index_features] <- lapply(data[index_features], function(x) replace(x, is.na(x), ft_mean(x)))
-    data
+    d[index_features] <- lapply(d[index_features], function(x) replace(x, is.na(x), ft_mean(x)))
+    d
 }

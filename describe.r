@@ -5,10 +5,10 @@ source("ft_datacheck.r")
 
 args <- commandArgs(TRUE)
 filename <- check_file(args[1])
-data <- ft_checkdata(filename)
+dslr <- ft_checkdata(filename)
 
-index_features <- c(7:length(data))
-data.describe <- lapply(data[index_features], extract_data)
-data.describe <- do.call(cbind, data.describe)
-rownames(data.describe) <- c("Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max")
-data.describe
+index_features <- c(7:length(dslr))
+dslr.describe <- lapply(dslr[index_features], extract_data)
+dslr.describe <- do.call(cbind, dslr.describe)
+rownames(dslr.describe) <- c("Count", "Mean", "Std", "Min", "25%", "50%", "75%", "Max")
+dslr.describe
