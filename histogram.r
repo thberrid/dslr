@@ -52,3 +52,46 @@ ggplot(dslr, aes(binwidth = 1)) +
 
 message("Press Enter to close")
 invisible(readLines("stdin", n=1))
+
+
+#  library(data.table)
+# library(ggplot2)
+
+# train <- fread("/Users/camilleberrido/tobi/datasets/dataset_train.csv")
+
+# gplot(train, aes(x=Divination))+
+#   +     geom_histogram(color="black", fill="white")+
+#   +     facet_grid(train$`Hogwarts House` ~ .)
+
+
+
+# Camille Berrido
+# 21:37
+# ggplot(train, aes(x=Astronomy, color = train$"Hogwarts House")) + 
+# +     geom_histogram()
+# Camille Berrido
+# 21:43
+# ggplot(train, aes(x=Divination))+
+# +     geom_histogram(color="black", fill="white")+
+# +     facet_grid(train$`Hogwarts House` ~ .)
+# Camille Berrido
+# 21:46
+#  library(data.table)
+# library(ggplot2)
+
+# train <- fread("/Users/camilleberrido/tobi/datasets/dataset_train.csv")
+
+# gplot(train, aes(x=Divination))+
+#   +     geom_histogram(color="black", fill="white")+
+#   +     facet_grid(train$`Hogwarts House` ~ .)
+# Camille Berrido
+# 21:48
+# dplyr
+# Vous
+# 21:50
+# https://github.com/thberrid/dslr
+# Camille Berrido
+# 22:02
+# https://medium.com/coinmonks/dealing-with-missing-data-using-r-3ae428da2d1u7
+
+:
