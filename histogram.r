@@ -11,9 +11,15 @@ train <- fread("datasets/dataset_train.csv")
 features.histograms <- Reduce(function(acc, feature.name){
     feature.name <- sym(feature.name)
     acc + wrap_plots(
-            ggplot(train, aes(x=!!feature.name, color = train$"Hogwarts House")) +
-                geom_histogram(position = "identity", alpha = 0.3) + labs(color = "Houses") + 
-                plot_layout()
+        # for separate histograms :
+            ggplot(train, aes(x=!!feature.name)) +
+                geom_histogram(color = "black", fill="white") + 
+                facet_grid(train$`Hogwarts House` ~ . )
+
+        # for overlayed histograms :
+        #   ggplot(train, aes(x=!!feature.name, color = train$"Hogwarts House")) +
+        #       geom_histogram(position = "identity", alpha = 0.1) + labs(color = "Houses") + 
+                
         )
    }, colnames(train[1, c(7:19)]), init = ggplot() + theme_void())
 
