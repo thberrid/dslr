@@ -1,35 +1,26 @@
-#!/usr/bin/Rscript --no-save --restore
+#!/usr/bin/Rscript --vanilla
 
 library(ggplot2)
-source("ft_math.r")
-
-x11()
-if (!exists(c("dslr"))){
-    cat("Execute describe.r before using this script.\n")
-    quit()
-}
+library(data.table)
+library(patchwork)
 
 #####
 
-# ggplot(dslr, aes(x=Astronomy, color = "Hogwarts House")) + 
-#   geom_histogram()
-
-library(data.table)
-
 train <- fread("datasets/dataset_train.csv")
 
-#p <- ggplot(train, aes(x=Astronomy, color = train$"Hogwarts House")) +
-#    geom_histogram(fill="white")q
+features.histograms <- Reduce(function(acc, feature.name){
+    feature.name <- sym(feature.name)
+    acc + wrap_plots(
+            ggplot(train, aes(x=!!feature.name, color = train$"Hogwarts House")) +
+                geom_histogram(position = "identity", alpha = 0.3) + labs(color = "Houses") + 
+                plot_layout()
+        )
+   }, colnames(train[1, c(7:19)]), init = ggplot() + theme_void())
 
-p <- ggplot(train, aes(x=notes, color = train$"Hogwarts House")) +
-    geom_histogram(position = "identity", alpha = 0.3)
+x11(width=20, height=13)
+features.histograms
 
-
-p
-
-#ggplot(train, aes(x=Divination))+
-#    geom_histogram(color="black", fill="white")+
-#   facet_grid(train$`Hogwarts House` ~ .)
+#####
 
 message("Press Enter to close")
 invisible(readLines("stdin", n=1))
